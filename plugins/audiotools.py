@@ -71,9 +71,9 @@ async def vnc(e):
     os.remove("out.opus")
 
 
-@ultroid_cmd(pattern="atrim ?(.*)")
+@ultroid_cmd(pattern="atrim( (.*)|$)")
 async def trim_aud(e):
-    sec = e.pattern_match.group(1)
+    sec = e.pattern_match.group(1).strip()
     if not sec or "-" not in sec:
         return await eod(e, get_string("audiotools_3"))
     a, b = sec.split("-")

@@ -43,11 +43,11 @@ async def watcher(event):
 
 
 @ultroid_cmd(
-    pattern="dmute ?(.*)",
+    pattern="dmute( (.*)|$)",
 )
 async def startmute(event):
     xx = await event.eor("`Muting...`")
-    input_ = event.pattern_match.group(1)
+    input_ = event.pattern_match.group(1).strip()
     if input_:
         try:
             userid = await event.client.parse_id(input_)
@@ -72,12 +72,12 @@ async def startmute(event):
 
 
 @ultroid_cmd(
-    pattern="undmute ?(.*)",
+    pattern="undmute( (.*)|$)",
     manager=True,
 )
 async def endmute(event):
     xx = await event.eor("`Unmuting...`")
-    input = event.pattern_match.group(1)
+    input = event.pattern_match.group(1).strip()
     if input:
         try:
             userid = await event.client.parse_id(input_)
@@ -142,13 +142,13 @@ async def _(e):
 
 
 @ultroid_cmd(
-    pattern="unmute ?(.*)",
+    pattern="unmute( (.*)|$)",
     admins_only=True,
     manager=True,
 )
 async def _(e):
     xx = await e.eor("`Unmuting...`")
-    input = e.pattern_match.group(1)
+    input = e.pattern_match.group(1).strip()
     chat = await e.get_chat()
     if e.reply_to_msg_id:
         reply = await e.get_reply_message()
@@ -175,10 +175,12 @@ async def _(e):
         await xx.eor(f"`{m}`", time=5)
 
 
-@ultroid_cmd(pattern="mute ?(.*)", admins_only=True, manager=True, require="ban_users")
+@ultroid_cmd(
+    pattern="mute( (.*)|$)", admins_only=True, manager=True, require="ban_users"
+)
 async def _(e):
     xx = await e.eor("`Muting...`")
-    input = e.pattern_match.group(1)
+    input = e.pattern_match.group(1).strip()
     chat = await e.get_chat()
     if e.reply_to_msg_id:
         userid = (await e.get_reply_message()).sender_id

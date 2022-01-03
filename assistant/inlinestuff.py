@@ -101,9 +101,9 @@ async def _(e):
         )
 
 
-@in_pattern("fl2lnk ?(.*)", owner=True)
+@in_pattern("fl2lnk( (.*)|$)", owner=True)
 async def _(e):
-    match = e.pattern_match.group(1)
+    match = e.pattern_match.group(1).strip()
     chat_id, msg_id = match.split(":")
     filename = _webupload_cache[int(chat_id)][int(msg_id)]
     if "/" in filename:

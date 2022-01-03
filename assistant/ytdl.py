@@ -122,7 +122,7 @@ async def _(event):
     owner=True,
 )
 async def _(e):
-    _e = e.pattern_match.group(1).decode("UTF-8")
+    _e = e.pattern_match.group(1).strip().decode("UTF-8")
     _lets_split = _e.split(":")
     _ytdl_data = await dler(e, _yt_base_url + _lets_split[1])
     _data = get_formats(_lets_split[0], _lets_split[1], _ytdl_data)
@@ -140,7 +140,7 @@ async def _(e):
     owner=True,
 )
 async def _(event):
-    url = event.pattern_match.group(1).decode("UTF-8")
+    url = event.pattern_match.group(1).strip().decode("UTF-8")
     lets_split = url.split(":")
     vid_id = lets_split[2]
     link = _yt_base_url + vid_id
@@ -184,8 +184,11 @@ async def _(event):
             else ytdl_data["description"][:100]
         )
         description = description or "None"
+        filepath = vid_id + f".{ext}"
+        if not os.path.exists(filepath):
+            filepath = filepath + f".{ext}"
         file, _ = await event.client.fast_uploader(
-            vid_id + f".{ext}" * 2,
+            filepath,
             filename=title + "." + ext,
             show_progress=True,
             event=event,

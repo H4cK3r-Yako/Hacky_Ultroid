@@ -215,7 +215,7 @@ async def stats(
     await ok.edit(response)
 
 
-@ultroid_cmd(pattern="paste ?(.*)", manager=True, allow_all=True)
+@ultroid_cmd(pattern="paste( (.*)|$)", manager=True, allow_all=True)
 async def _(event):
     try:
         input_str = event.text.split(maxsplit=1)[1]
@@ -263,11 +263,11 @@ async def _(event):
 
 
 @ultroid_cmd(
-    pattern="info ?(.*)",
+    pattern="info( (.*)|$)",
     manager=True,
 )
 async def _(event):
-    match = event.pattern_match.group(1)
+    match = event.pattern_match.group(1).strip()
     if match:
         try:
             user = await event.client.parse_id(match)
@@ -366,12 +366,12 @@ async def _(event):
 
 
 @ultroid_cmd(
-    pattern="invite ?(.*)",
+    pattern="invite( (.*)|$)",
     groups_only=True,
 )
 async def _(ult):
     xx = await ult.eor(get_string("com_1"))
-    to_add_users = ult.pattern_match.group(1)
+    to_add_users = ult.pattern_match.group(1).strip()
     if not ult.is_channel and ult.is_group:
         for user_id in to_add_users.split(" "):
             try:
@@ -450,10 +450,10 @@ async def abs_rmbg(event):
 
 
 @ultroid_cmd(
-    pattern="telegraph ?(.*)",
+    pattern="telegraph( (.*)|$)",
 )
 async def telegraphcmd(event):
-    match = event.pattern_match.group(1) or "Ultroid"
+    match = event.pattern_match.group(1).strip() or "Ultroid"
     reply = await event.get_reply_message()
     if not reply:
         return await event.eor("`Reply to Message.`")
@@ -515,7 +515,7 @@ async def _(event):
         await event.eor(f"```{the_real_message}```")
 
 
-@ultroid_cmd(pattern="suggest ?(.*)", manager=True)
+@ultroid_cmd(pattern="suggest( (.*)|$)", manager=True)
 async def sugg(event):
     sll = event.text.split(maxsplit=1)
     try:
@@ -547,7 +547,7 @@ async def sugg(event):
     await event.delete()
 
 
-@ultroid_cmd(pattern="ipinfo ?(.*)")
+@ultroid_cmd(pattern="ipinfo( (.*)|$)")
 async def ipinfo(event):
     ip = event.text.split()
     ipaddr = ""

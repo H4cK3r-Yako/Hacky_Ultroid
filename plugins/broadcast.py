@@ -31,11 +31,11 @@ from . import HNDLR, LOGS, eor, get_string, udB, ultroid_bot, ultroid_cmd
 
 
 @ultroid_cmd(
-    pattern="addch ?(.*)",
+    pattern="addch( (.*)|$)",
     allow_sudo=False,
 )
 async def broadcast_adder(event):
-    msgg = event.pattern_match.group(1)
+    msgg = event.pattern_match.group(1).strip()
     x = await event.eor(get_string("bd_1"))
     if msgg == "all":
         await x.edit(get_string("bd_2"))
@@ -90,11 +90,11 @@ async def broadcast_adder(event):
 
 
 @ultroid_cmd(
-    pattern="remch ?(.*)",
+    pattern="remch( (.*)|$)",
     allow_sudo=False,
 )
 async def broadcast_remover(event):
-    chat_id = event.pattern_match.group(1)
+    chat_id = event.pattern_match.group(1).strip()
     x = await event.eor(get_string("com_1"))
     if chat_id == "all":
         await x.edit(get_string("bd_8"))
@@ -194,7 +194,7 @@ async def forw(event):
 
 
 @ultroid_cmd(
-    pattern="broadcast ?(.*)",
+    pattern="broadcast( (.*)|$)",
     allow_sudo=False,
 )
 async def sending(event):

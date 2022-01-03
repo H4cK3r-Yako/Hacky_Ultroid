@@ -328,6 +328,7 @@ async def _(e):
                 "Fᴅʀᴏɪᴅ Sᴇᴀʀᴄʜ", query="fdroid telegram", same_peer=True
             )
         ],
+        [Button.switch_inline("Sᴀᴀᴠɴ sᴇᴀʀᴄʜ", query="saavn", same_peer=True)],
         [
             Button.inline(
                 "« Bᴀᴄᴋ",
@@ -406,7 +407,7 @@ STUFF = {}
 
 @in_pattern("stf(.*)", owner=True)
 async def ibuild(e):
-    n = e.pattern_match.group(1)
+    n = e.pattern_match.group(1).strip()
     builder = e.builder
     if not (n and n.isdigit()):
         return

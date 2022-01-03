@@ -46,10 +46,10 @@ from . import (
 
 
 @ultroid_cmd(
-    pattern="download ?(.*)",
+    pattern="download( (.*)|$)",
 )
 async def down(event):
-    matched = event.pattern_match.group(1)
+    matched = event.pattern_match.group(1).strip()
     msg = await event.eor(get_string("udl_4"))
     if not matched:
         return await eor(msg, get_string("udl_5"), time=5)
@@ -80,7 +80,7 @@ async def down(event):
 
 
 @ultroid_cmd(
-    pattern="dl ?(.*)",
+    pattern="dl( (.*)|$)",
 )
 async def download(event):
     if not event.reply_to_msg_id:
@@ -95,7 +95,7 @@ async def download(event):
         if hasattr(ok.media, "document"):
             file = ok.media.document
             mime_type = file.mime_type
-            filename = event.pattern_match.group(1) or ok.file.name
+            filename = event.pattern_match.group(1).strip() or ok.file.name
             if not filename:
                 if "audio" in mime_type:
                     filename = "audio_" + dt.now().isoformat("_", "seconds") + ".ogg"
@@ -133,13 +133,13 @@ async def download(event):
 
 
 @ultroid_cmd(
-    pattern="ul ?(.*)",
+    pattern="ul( (.*)|$)",
 )
 async def download(event):
     if event.text[1:].startswith("ultroid"):
         return
     xx = await event.eor(get_string("com_1"))
-    hmm = event.pattern_match.group(1)
+    hmm = event.pattern_match.group(1).strip()
     try:
         kk = hmm.split(" | stream")[0]
     except BaseException:

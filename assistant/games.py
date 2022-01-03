@@ -65,7 +65,7 @@ async def _akokk(e):
 
 @callback(re.compile("aki_(.*)"), owner=True)
 async def doai(e):
-    adt = e.pattern_match.group(1).decode("utf-8")
+    adt = e.pattern_match.group(1).strip().decode("utf-8")
     dt = adt.split("_")
     ch = int(dt[0])
     mid = int(dt[1])
@@ -159,7 +159,7 @@ CONGO_STICKER = [
 ]
 
 
-@callback("delit")
+@callback("delit", owner=True)
 async def delete_it(event):
     await event.delete()
 

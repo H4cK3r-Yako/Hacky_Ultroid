@@ -19,11 +19,11 @@ from . import asst, get_string, ultroid_cmd
 
 
 @ultroid_cmd(
-    pattern="webupload ?(.*)",
+    pattern="webupload( (.*)|$)",
 )
 async def _(event):
     xx = await event.eor(get_string("com_1"))
-    match = event.pattern_match.group(1)
+    match = event.pattern_match.group(1).strip()
     if event.chat_id not in _webupload_cache:
         _webupload_cache.update({int(event.chat_id): {}})
     if match:

@@ -46,9 +46,9 @@ from . import (
 CACHE = {}
 
 
-@ultroid_cmd(pattern="fsub ?(.*)", admins_only=True, groups_only=True)
+@ultroid_cmd(pattern="fsub( (.*)|$)", admins_only=True, groups_only=True)
 async def addfor(e):
-    match = e.pattern_match.group(1)
+    match = e.pattern_match.group(1).strip()
     if not match:
         return await e.eor(get_string("fsub_1"), time=5)
     if match.startswith("@"):
@@ -84,9 +84,9 @@ async def getfsr(e):
     await e.eor(f"**ForceSub Status** : `Active`\n- **{cha.title}** `({res})`")
 
 
-@in_pattern("fsub ?(.*)", owner=True)
+@in_pattern("fsub( (.*)|$)", owner=True)
 async def fcall(e):
-    match = e.pattern_match.group(1)
+    match = e.pattern_match.group(1).strip()
     spli = match.split("_")
     user = await ultroid_bot.get_entity(int(spli[0]))
     cl = await ultroid_bot.get_entity(int(spli[1]))
